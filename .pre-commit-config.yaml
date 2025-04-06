@@ -1,0 +1,89 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+    -   id: check-ast
+    -   id: check-json
+    -   id: check-merge-conflict
+    -   id: detect-private-key
+
+-   repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+    -   id: black
+        language_version: python3.13
+
+-   repo: https://github.com/pycqa/isort
+    rev: 6.0.1
+    hooks:
+    -   id: isort
+        args: ["--profile", "black"]
+
+-   repo: https://github.com/pycqa/flake8
+    rev: 7.2.0
+    hooks:
+    -   id: flake8
+        additional_dependencies: [
+            'flake8-docstrings',
+            'flake8-bugbear',
+            'flake8-comprehensions',
+            'flake8-simplify',
+            'flake8-unused-arguments',
+            'flake8-return',
+            'flake8-raise',
+            'flake8-mutable',
+            'flake8-future-annotations',
+            'flake8-type-checking',
+            'flake8-pyi',
+            'flake8-tidy-imports',
+            'flake8-annotations-complexity',
+            'flake8-commas',
+            'flake8-debugger',
+            'flake8-errmsg',
+            'flake8-implicit-str-concat',
+            'flake8-logging-format',
+            'flake8-multiline-containers',
+            'flake8-pytest-style',
+            'flake8-quotes',
+            'flake8-requirements',
+            'flake8-spellcheck',
+            'flake8-string-format',
+            'flake8-super',
+            'flake8-todos',
+            'flake8-use-fstring',
+            'flake8-variables-names',
+            'flake8-walrus',
+        ]
+
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.15.0
+    hooks:
+    -   id: mypy
+        exclude: "tests/.*"
+        args: [
+            "--ignore-missing-imports",
+            "--disallow-incomplete-defs",
+            "--check-untyped-defs",
+            "--disallow-untyped-decorators",
+            "--no-implicit-optional",
+            "--warn-redundant-casts",
+            "--warn-unused-ignores",
+            "--warn-no-return",
+            "--warn-unreachable",
+            "--strict-optional",
+        ]
+
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.0
+    hooks:
+    -   id: pyupgrade
+
+-   repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.5.0
+    hooks:
+    -   id: commitizen
+        stages: [commit-msg]

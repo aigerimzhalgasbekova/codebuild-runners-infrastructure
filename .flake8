@@ -1,0 +1,72 @@
+[flake8]
+max-line-length = 88
+extend-ignore =
+    # Handled by black
+    # whitespace before ':'
+    E203,
+    # line break before binary operator
+    W503,
+    # Temporarily disabled until we fix all
+    # Missing docstring in public module
+    D100,
+    # Missing docstring in public class
+    D101,
+    # Missing docstring in public function
+    D103,
+    # Missing docstring in public package
+    D104,
+    # Missing docstring in __init__
+    D107,
+    # Possibly misspelt word (too aggressive for AWS terms)
+    SC200,
+    SC100,
+    # 'aws_cdk' not listed as requirement (not needed for CDK projects)
+    I900,
+    # Move application import into type-checking block (too strict)
+    TC001,
+    # Move third-party import into type-checking block (too strict)
+    TC002,
+    # Double quotes found but single quotes preferred (will fix later)
+    Q000,
+    # Missing trailing comma (will fix later)
+    C812,
+    # Variable names that shadow builtins (will fix later)
+    VNE003,
+    # Imported but unused (will fix later)
+    F401,
+    # Local variable is assigned to but never used (will fix later)
+    F841,
+    # Loop control variable not used (will fix later)
+    B007,
+    # Line too long (will fix with black)
+    E501,
+    # Continuation line under-indented (will fix with black)
+    E128,
+    # Closing bracket does not match visual indentation (will fix with black)
+    E124,
+    # Expected 2 blank lines (will fix with black)
+    E302,
+    # Expected 2 blank lines after class/function (will fix with black)
+    E305,
+    # First line should end with period (will fix later)
+    D415
+
+exclude =
+    .git,
+    __pycache__,
+    build,
+    dist,
+    *.egg-info,
+    .eggs,
+    .tox,
+    .venv,
+    venv,
+    cdk.out,
+    cdk.staging
+
+per-file-ignores =
+    __init__.py: F401
+    tests/*: D100,D101,D102,D103,D104,D107
+
+docstring-convention = google
+max-complexity = 10

@@ -1,0 +1,28 @@
+version: '3'
+
+vars:
+  AWS_ACCOUNT_ID:
+    sh: echo $(aws sts get-caller-identity --query Account --output text)
+  AWS_REGION: 'eu-west-1'
+
+tasks:
+  setup:
+    cmds:
+      - task: poetry:install
+  poetry:install:
+    cmds:
+      - poetry install
+  poetry:lock:
+    cmds:
+      - poetry lock
+  poetry:format:
+    cmds:
+      - poetry run black deploy
+  test:
+    desc: Run the unit tests
+    cmds:
+      - poetry run pytest tests/
+  test:watch:
+    desc: Run tests in watch mode
+    cmds:
+      - poetry run pytest -xvs tests/ --watch
