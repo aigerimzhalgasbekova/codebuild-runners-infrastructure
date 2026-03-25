@@ -43,10 +43,12 @@ jobs:
     - name: Run tests
       run: |
         source .venv/bin/activate
-        pytest tests/ -v --cov=deploy --cov-report=xml
+        pytest tests/ -v --junitxml=test-results.xml
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v5
+    - name: Test report
+      uses: dorny/test-reporter@v3
+      if: always()
       with:
-        file: ./coverage.xml
-        fail_ci_if_error: false
+        name: pytest
+        path: test-results.xml
+        reporter: java-junit
