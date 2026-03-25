@@ -30,7 +30,7 @@ class CodeBuildProjectStack(Stack):
         scope: Construct,
         construct_id: str,
         env_config: EnvConfig,
-        **kwargs: dict[str, Any],
+        **kwargs: Any,
     ) -> None:
         """Initialize the CodeBuild projects stack.
 

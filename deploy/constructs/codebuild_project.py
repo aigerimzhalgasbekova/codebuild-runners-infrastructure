@@ -1,7 +1,5 @@
 """CodeBuild project construct implementation."""
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 from typing import Any
 
@@ -27,9 +25,9 @@ class VpcAndSubnets:
         private_subnets: List of private subnets where CodeBuild projects will run
     """
 
-    vpc: ec2.Vpc
-    public_subnets: list[ec2.Subnet]
-    private_subnets: list[ec2.Subnet]
+    vpc: ec2.IVpc
+    public_subnets: list[ec2.ISubnet]
+    private_subnets: list[ec2.ISubnet]
 
 
 class CodeBuildProject(Construct):
@@ -51,7 +49,7 @@ class CodeBuildProject(Construct):
         scope: Construct,
         construct_id: str,
         project_spec: CodeBuildProjectConfig,
-        **kwargs: dict[str, Any],
+        **kwargs: Any,
     ) -> None:
         """Initialize the CodeBuild project construct.
 
@@ -64,6 +62,11 @@ class CodeBuildProject(Construct):
         super().__init__(scope, construct_id, **kwargs)
 
         vpc_and_subnets = self.get_vpc_and_subnets(scope, construct_id)
+
+        if not project_spec.owner or not project_spec.repository:
+            msg = f"owner and repository are required for CodeBuild project {construct_id}"
+            raise ValueError(msg)
+
         # Create a CodeBuild project
         build_project = codebuild.Project(
             self,
